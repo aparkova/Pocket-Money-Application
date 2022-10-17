@@ -1,23 +1,18 @@
-import logo from './logo.svg';
-import './App.css';
+// import ProductsDropdown from './components/ProductsDropdown';
+import TransferTokens from './components/TransferTokens';
+// import SetCodes from './components/SetCodes';
+// import { useState } from 'react'
+import ProductSelect from './components/ProductSelect';
 
-function App() {
+function App () {
+  
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+    <div>
+      <TransferTokens/>
+      {/* <ProductsDropdown data={categories}/>  */}
+      {/* <SetCodes/>     */}
+      <ProductSelect/>
+      
     </div>
   );
 }
