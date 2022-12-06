@@ -19,15 +19,21 @@ contract TransferToken {
         return codeStorage.compareArrays();
     }
 
+    function isEligibleSeller(address _address) public view returns (bool) {
+        return codeStorage.isEligibleSeller(_address);
+    }
+
     function sendCoin(address receiver, uint256 amount)
         public
         payable
         returns (bool sufficient)
     {
+        require(isEligibleSeller(receiver) == true, "Seller is not eligible");
         require(compareArrays() == true, "Items are not allowed");
         require(balances[msg.sender] >= amount, "Not enough tokens");
         balances[msg.sender] -= amount;
         balances[receiver] += amount;
+        codeStorage.deleteAllowedProducts();
         return true;
     }
 

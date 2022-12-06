@@ -1,0 +1,56 @@
+import React, { useState } from 'react';
+import * as FaIcons from 'react-icons/fa'
+import * as AiIcons from 'react-icons/ai'
+import * as IoIcons from 'react-icons/io'
+import { NavLink } from 'react-router-dom';
+
+
+const Sidebar = ({children}) => {
+    const[isOpen ,setIsOpen] = useState(false);
+    const toggle = () => setIsOpen (!isOpen);
+    const sidebarData=[
+        {
+            path:"/",
+            name:"Home",
+            icon:<AiIcons.AiFillHome/>
+        },
+        {
+            path:"/sendtokens",
+            name:"Send Tokens",
+            icon:<FaIcons.FaCoins/>
+        },
+        {
+            path:"/marketplace",
+            name:"Marketplace",
+            icon:<FaIcons.FaShoppingCart/>
+        },
+        {
+            path:"/about",
+            name:"About",
+            icon:<IoIcons.IoMdHelpCircle/>
+        }
+    ]
+    return (
+        <div className="container">
+           <div style={{width: isOpen ? "200px" : "50px"}} className="sidebar">
+               <div className="top_section">
+                   <h1 style={{display: isOpen ? "block" : "none"}} className="logo">Logo</h1>
+                   <div style={{marginLeft: isOpen ? "50px" : "0px"}} className="bars">
+                       <FaIcons.FaBars onClick={toggle}/>
+                   </div>
+               </div>
+               {
+                   sidebarData.map((item, index)=>(
+                       <NavLink to={item.path} key={index} className="link" activeclassname="active">
+                           <div className="icon">{item.icon}</div>
+                           <div style={{display: isOpen ? "block" : "none"}} className="link_text">{item.name}</div>
+                       </NavLink>
+                   ))
+               }
+           </div>
+           <main>{children}</main>
+        </div>
+    );
+};
+
+export default Sidebar;
