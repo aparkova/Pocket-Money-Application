@@ -77,34 +77,79 @@ contract PmToken {
         balances[msg.sender] -= _amount;
         balances[_to] += _amount;
         conditions[_to][_id].balance += _amount;
-        uint256[] memory combinedArray = new uint256[](
-            conditions[_to][_id].allowedProducts.length +
-                _allowedProducts.length
-        );
-        //check if the new array is already stored in the old array
-        // if the old array contains all the elements of the new array, then we don't need to store the new array
+
+        //array1 and array2, and adds the elements in array2 that are not present in array1 to the end of array1. The difference array is used to store the elements that are present in array2 but not in array1
+        // if the new array doesn't have any values that are present in the old array, then attach the new array to the old one
+
         if (
-            checkIfAlreadyStored(
+            !checkIfAlreadyStored(
                 conditions[_to][_id].allowedProducts,
                 _allowedProducts
             )
         ) {
-            return;
+            for (uint256 i = 0; i < _allowedProducts.length; i++) {
+                conditions[_to][_id].allowedProducts.push(_allowedProducts[i]);
+            }
         }
-        //if the old array doesn't contain all the elements of the new array, then we need to attach only the different value to the array
-        for (
-            uint256 i = 0;
-            i < conditions[_to][_id].allowedProducts.length;
-            i++
-        ) {
-            combinedArray[i] = conditions[_to][_id].allowedProducts[i];
-        }
+
+        uint256[] memory difference = new uint256[](
+            _allowedProducts.length -
+                conditions[_to][_id].allowedProducts.length
+        );
+        uint256 k = 0;
         for (uint256 i = 0; i < _allowedProducts.length; i++) {
-            combinedArray[
-                i + conditions[_to][_id].allowedProducts.length
-            ] = _allowedProducts[i];
+            if (
+                !checkIfAlreadyStored(
+                    conditions[_to][_id].allowedProducts,
+                    _allowedProducts
+                )
+            ) {
+                difference[k] = _allowedProducts[i];
+                k++;
+            }
         }
-        conditions[_to][_id].allowedProducts = combinedArray;
+        for (uint256 i = 0; i < difference.length; i++) {
+            conditions[_to][_id].allowedProducts.push(difference[i]);
+        }
+
+        conditions[_to][_id].allowedProducts = _allowedProducts;
+    }
+
+    //check if conditions stored for a specific address are fulfilled, when the kid wants to spend the pocket money
+    function checkConditions(
+        address _from,
+        uint256 _id,
+        uint256 _amount,
+        uint256[] memory _products
+    ) public view returns (bool) {
+        if (conditions[_from][_id].balance >= _amount) {
+            if (
+                checkIfArraysAreTheSame(
+                    conditions[_from][_id].allowedProducts,
+                    _products
+                )
+            ) {
+                return true;
+            }
+        }
+        return false;
+    }
+
+    //spend pocket money - kid to merchant
+    //function takes as parameters the seller's address, the id of the conditions, the amount of pocket money to spend, and the products bought
+    function spend(
+        address _from,
+        uint256 _id,
+        uint256 _amount,
+        uint256[] memory _products
+    ) external payable {
+        require(
+            checkConditions(_from, _id, _amount, _products),
+            "Conditions not fulfilled"
+        );
+        balances[_from] -= _amount;
+        balances[msg.sender] += _amount;
+        conditions[_from][_id].balance -= _amount;
     }
 
     function balanceOf(address account) external view returns (uint256) {
