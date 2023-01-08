@@ -5,15 +5,18 @@ export const categories = [
         options: [
             {
                 label: "Activewear",
-                value: 10004115
+                value: 10004115,
+                price: 23
             },
             {
                 label: "Sportswear - Badges",
-                value: 10004114
+                value: 10004114,
+                price: 24
             },
             {
                 label: "Sportswear - Belts",
-                value: 10001342
+                value: 10001342,
+                price: 25
             },
             {
                 label: "Sportswear - Handwear",

@@ -1,22 +1,9 @@
-export const PM_TOKEN_ADDRESS = '0x7b7963C1f9D6Ccad7C5A6482BA08FEecc5f4DbfD'
-export const PM_TOKEN_ABI =[
+export const PM_TOKEN_ADDRESS = '0x1CbD73E1961799B745f0eF8D2Af3633357D3D9B2'
+export const PM_TOKEN_ABI = [
 	{
 		"inputs": [],
 		"stateMutability": "nonpayable",
 		"type": "constructor"
-	},
-	{
-		"inputs": [
-			{
-				"internalType": "address",
-				"name": "_codestorage",
-				"type": "address"
-			}
-		],
-		"name": "InheritContract",
-		"outputs": [],
-		"stateMutability": "nonpayable",
-		"type": "function"
 	},
 	{
 		"inputs": [
@@ -45,9 +32,19 @@ export const PM_TOKEN_ABI =[
 				"type": "address"
 			},
 			{
-				"internalType": "uint256",
-				"name": "_amount",
-				"type": "uint256"
+				"internalType": "uint256[]",
+				"name": "_ids",
+				"type": "uint256[]"
+			},
+			{
+				"internalType": "uint256[]",
+				"name": "_amounts",
+				"type": "uint256[]"
+			},
+			{
+				"internalType": "uint256[]",
+				"name": "_productCodes",
+				"type": "uint256[]"
 			}
 		],
 		"name": "buyProducts",
@@ -56,29 +53,31 @@ export const PM_TOKEN_ABI =[
 		"type": "function"
 	},
 	{
-		"inputs": [],
-		"name": "compareArrays",
-		"outputs": [
+		"inputs": [
 			{
-				"internalType": "bool",
-				"name": "",
-				"type": "bool"
-			}
-		],
-		"stateMutability": "view",
-		"type": "function"
-	},
-	{
-		"inputs": [],
-		"name": "counter",
-		"outputs": [
+				"internalType": "address",
+				"name": "_to",
+				"type": "address"
+			},
 			{
 				"internalType": "uint256",
-				"name": "",
+				"name": "_id",
 				"type": "uint256"
+			},
+			{
+				"internalType": "uint256",
+				"name": "_amount",
+				"type": "uint256"
+			},
+			{
+				"internalType": "uint256[]",
+				"name": "_allowedProducts",
+				"type": "uint256[]"
 			}
 		],
-		"stateMutability": "view",
+		"name": "conditionalTransfer",
+		"outputs": [],
+		"stateMutability": "payable",
 		"type": "function"
 	},
 	{
@@ -95,40 +94,19 @@ export const PM_TOKEN_ABI =[
 		"type": "function"
 	},
 	{
-		"inputs": [],
-		"name": "deleteAllowedProducts",
-		"outputs": [],
-		"stateMutability": "nonpayable",
-		"type": "function"
-	},
-	{
 		"inputs": [
 			{
 				"internalType": "address",
 				"name": "_address",
 				"type": "address"
-			}
-		],
-		"name": "getBalanceToConditions",
-		"outputs": [
+			},
 			{
-				"internalType": "uint256[]",
-				"name": "",
-				"type": "uint256[]"
+				"internalType": "uint256",
+				"name": "_id",
+				"type": "uint256"
 			}
 		],
-		"stateMutability": "view",
-		"type": "function"
-	},
-	{
-		"inputs": [
-			{
-				"internalType": "address",
-				"name": "_address",
-				"type": "address"
-			}
-		],
-		"name": "getBalanceWithConditions",
+		"name": "getBalance",
 		"outputs": [
 			{
 				"components": [
@@ -143,9 +121,9 @@ export const PM_TOKEN_ABI =[
 						"type": "uint256[]"
 					}
 				],
-				"internalType": "struct PmToken.Balance[]",
+				"internalType": "struct PmToken.Balance",
 				"name": "",
-				"type": "tuple[]"
+				"type": "tuple"
 			}
 		],
 		"stateMutability": "view",
@@ -154,36 +132,17 @@ export const PM_TOKEN_ABI =[
 	{
 		"inputs": [
 			{
-				"internalType": "address",
-				"name": "_address",
-				"type": "address"
+				"internalType": "uint256",
+				"name": "",
+				"type": "uint256"
 			}
 		],
-		"name": "getConditions",
+		"name": "ids",
 		"outputs": [
 			{
-				"internalType": "uint256[]",
+				"internalType": "uint256",
 				"name": "",
-				"type": "uint256[]"
-			}
-		],
-		"stateMutability": "view",
-		"type": "function"
-	},
-	{
-		"inputs": [
-			{
-				"internalType": "address",
-				"name": "_address",
-				"type": "address"
-			}
-		],
-		"name": "isEligibleSeller",
-		"outputs": [
-			{
-				"internalType": "bool",
-				"name": "",
-				"type": "bool"
+				"type": "uint256"
 			}
 		],
 		"stateMutability": "view",
@@ -200,6 +159,24 @@ export const PM_TOKEN_ABI =[
 			}
 		],
 		"stateMutability": "view",
+		"type": "function"
+	},
+	{
+		"inputs": [
+			{
+				"internalType": "address",
+				"name": "_address",
+				"type": "address"
+			},
+			{
+				"internalType": "uint256",
+				"name": "_id",
+				"type": "uint256"
+			}
+		],
+		"name": "resetConditions",
+		"outputs": [],
+		"stateMutability": "nonpayable",
 		"type": "function"
 	},
 	{
@@ -223,19 +200,6 @@ export const PM_TOKEN_ABI =[
 				"internalType": "string",
 				"name": "",
 				"type": "string"
-			}
-		],
-		"stateMutability": "view",
-		"type": "function"
-	},
-	{
-		"inputs": [],
-		"name": "testAddress",
-		"outputs": [
-			{
-				"internalType": "address",
-				"name": "",
-				"type": "address"
 			}
 		],
 		"stateMutability": "view",
@@ -271,31 +235,307 @@ export const PM_TOKEN_ABI =[
 		"outputs": [],
 		"stateMutability": "payable",
 		"type": "function"
-	},
-	{
-		"inputs": [
-			{
-				"internalType": "address",
-				"name": "_to",
-				"type": "address"
-			},
-			{
-				"internalType": "uint256",
-				"name": "_amount",
-				"type": "uint256"
-			},
-			{
-				"internalType": "uint256[]",
-				"name": "_conditions",
-				"type": "uint256[]"
-			}
-		],
-		"name": "transferWithConditions",
-		"outputs": [],
-		"stateMutability": "payable",
-		"type": "function"
 	}
 ]
+
+// export const PM_TOKEN_ADDRESS = '0x7b7963C1f9D6Ccad7C5A6482BA08FEecc5f4DbfD'
+// export const PM_TOKEN_ABI =[
+// 	{
+// 		"inputs": [],
+// 		"stateMutability": "nonpayable",
+// 		"type": "constructor"
+// 	},
+// 	{
+// 		"inputs": [
+// 			{
+// 				"internalType": "address",
+// 				"name": "_codestorage",
+// 				"type": "address"
+// 			}
+// 		],
+// 		"name": "InheritContract",
+// 		"outputs": [],
+// 		"stateMutability": "nonpayable",
+// 		"type": "function"
+// 	},
+// 	{
+// 		"inputs": [
+// 			{
+// 				"internalType": "address",
+// 				"name": "account",
+// 				"type": "address"
+// 			}
+// 		],
+// 		"name": "balanceOf",
+// 		"outputs": [
+// 			{
+// 				"internalType": "uint256",
+// 				"name": "",
+// 				"type": "uint256"
+// 			}
+// 		],
+// 		"stateMutability": "view",
+// 		"type": "function"
+// 	},
+// 	{
+// 		"inputs": [
+// 			{
+// 				"internalType": "address",
+// 				"name": "_to",
+// 				"type": "address"
+// 			},
+// 			{
+// 				"internalType": "uint256",
+// 				"name": "_amount",
+// 				"type": "uint256"
+// 			}
+// 		],
+// 		"name": "buyProducts",
+// 		"outputs": [],
+// 		"stateMutability": "payable",
+// 		"type": "function"
+// 	},
+// 	{
+// 		"inputs": [],
+// 		"name": "compareArrays",
+// 		"outputs": [
+// 			{
+// 				"internalType": "bool",
+// 				"name": "",
+// 				"type": "bool"
+// 			}
+// 		],
+// 		"stateMutability": "view",
+// 		"type": "function"
+// 	},
+// 	{
+// 		"inputs": [],
+// 		"name": "counter",
+// 		"outputs": [
+// 			{
+// 				"internalType": "uint256",
+// 				"name": "",
+// 				"type": "uint256"
+// 			}
+// 		],
+// 		"stateMutability": "view",
+// 		"type": "function"
+// 	},
+// 	{
+// 		"inputs": [],
+// 		"name": "decimals",
+// 		"outputs": [
+// 			{
+// 				"internalType": "uint8",
+// 				"name": "",
+// 				"type": "uint8"
+// 			}
+// 		],
+// 		"stateMutability": "view",
+// 		"type": "function"
+// 	},
+// 	{
+// 		"inputs": [],
+// 		"name": "deleteAllowedProducts",
+// 		"outputs": [],
+// 		"stateMutability": "nonpayable",
+// 		"type": "function"
+// 	},
+// 	{
+// 		"inputs": [
+// 			{
+// 				"internalType": "address",
+// 				"name": "_address",
+// 				"type": "address"
+// 			}
+// 		],
+// 		"name": "getBalanceToConditions",
+// 		"outputs": [
+// 			{
+// 				"internalType": "uint256[]",
+// 				"name": "",
+// 				"type": "uint256[]"
+// 			}
+// 		],
+// 		"stateMutability": "view",
+// 		"type": "function"
+// 	},
+// 	{
+// 		"inputs": [
+// 			{
+// 				"internalType": "address",
+// 				"name": "_address",
+// 				"type": "address"
+// 			}
+// 		],
+// 		"name": "getBalanceWithConditions",
+// 		"outputs": [
+// 			{
+// 				"components": [
+// 					{
+// 						"internalType": "uint256",
+// 						"name": "balance",
+// 						"type": "uint256"
+// 					},
+// 					{
+// 						"internalType": "uint256[]",
+// 						"name": "allowedProducts",
+// 						"type": "uint256[]"
+// 					}
+// 				],
+// 				"internalType": "struct PmToken.Balance[]",
+// 				"name": "",
+// 				"type": "tuple[]"
+// 			}
+// 		],
+// 		"stateMutability": "view",
+// 		"type": "function"
+// 	},
+// 	{
+// 		"inputs": [
+// 			{
+// 				"internalType": "address",
+// 				"name": "_address",
+// 				"type": "address"
+// 			}
+// 		],
+// 		"name": "getConditions",
+// 		"outputs": [
+// 			{
+// 				"internalType": "uint256[]",
+// 				"name": "",
+// 				"type": "uint256[]"
+// 			}
+// 		],
+// 		"stateMutability": "view",
+// 		"type": "function"
+// 	},
+// 	{
+// 		"inputs": [
+// 			{
+// 				"internalType": "address",
+// 				"name": "_address",
+// 				"type": "address"
+// 			}
+// 		],
+// 		"name": "isEligibleSeller",
+// 		"outputs": [
+// 			{
+// 				"internalType": "bool",
+// 				"name": "",
+// 				"type": "bool"
+// 			}
+// 		],
+// 		"stateMutability": "view",
+// 		"type": "function"
+// 	},
+// 	{
+// 		"inputs": [],
+// 		"name": "name",
+// 		"outputs": [
+// 			{
+// 				"internalType": "string",
+// 				"name": "",
+// 				"type": "string"
+// 			}
+// 		],
+// 		"stateMutability": "view",
+// 		"type": "function"
+// 	},
+// 	{
+// 		"inputs": [],
+// 		"name": "standard",
+// 		"outputs": [
+// 			{
+// 				"internalType": "string",
+// 				"name": "",
+// 				"type": "string"
+// 			}
+// 		],
+// 		"stateMutability": "view",
+// 		"type": "function"
+// 	},
+// 	{
+// 		"inputs": [],
+// 		"name": "symbol",
+// 		"outputs": [
+// 			{
+// 				"internalType": "string",
+// 				"name": "",
+// 				"type": "string"
+// 			}
+// 		],
+// 		"stateMutability": "view",
+// 		"type": "function"
+// 	},
+// 	{
+// 		"inputs": [],
+// 		"name": "testAddress",
+// 		"outputs": [
+// 			{
+// 				"internalType": "address",
+// 				"name": "",
+// 				"type": "address"
+// 			}
+// 		],
+// 		"stateMutability": "view",
+// 		"type": "function"
+// 	},
+// 	{
+// 		"inputs": [],
+// 		"name": "totalSupply",
+// 		"outputs": [
+// 			{
+// 				"internalType": "uint256",
+// 				"name": "",
+// 				"type": "uint256"
+// 			}
+// 		],
+// 		"stateMutability": "view",
+// 		"type": "function"
+// 	},
+// 	{
+// 		"inputs": [
+// 			{
+// 				"internalType": "address",
+// 				"name": "_to",
+// 				"type": "address"
+// 			},
+// 			{
+// 				"internalType": "uint256",
+// 				"name": "_amount",
+// 				"type": "uint256"
+// 			}
+// 		],
+// 		"name": "transfer",
+// 		"outputs": [],
+// 		"stateMutability": "payable",
+// 		"type": "function"
+// 	},
+// 	{
+// 		"inputs": [
+// 			{
+// 				"internalType": "address",
+// 				"name": "_to",
+// 				"type": "address"
+// 			},
+// 			{
+// 				"internalType": "uint256",
+// 				"name": "_amount",
+// 				"type": "uint256"
+// 			},
+// 			{
+// 				"internalType": "uint256[]",
+// 				"name": "_conditions",
+// 				"type": "uint256[]"
+// 			}
+// 		],
+// 		"name": "transferWithConditions",
+// 		"outputs": [],
+// 		"stateMutability": "payable",
+// 		"type": "function"
+// 	}
+// ]
 
 
 export const CODESTORAGE_ADDRESS = '0x31B263F5f1955EBC53Cb1Df68c92084e35bc068e'

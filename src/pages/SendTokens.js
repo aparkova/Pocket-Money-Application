@@ -1,7 +1,6 @@
 import React from 'react'
 import TransferTokens from '../components/TransferTokens';
 import ProductSelect from '../components/ProductSelect';
-// import Test from '../components/Test';
 import SetCodes from '../components/SetCodes';
 
 function SendTokens() {
@@ -9,8 +8,8 @@ function SendTokens() {
     <div className='sendtokens'>
         <h1>Select conditions</h1>
         <ProductSelect/>
-        <h1>Send tokens</h1>
-        <TransferTokens/>
+        {/* <h1>Send tokens</h1>
+        <TransferTokens/> */}
         {/* <Test/> */}
         <h1>Database</h1>
         <SetCodes/>

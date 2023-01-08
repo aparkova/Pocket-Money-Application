@@ -3,6 +3,20 @@
     padding:0;
     text-decoration: none;
 }
+.header{
+    display: block;
+}
+.labels{
+    margin-top: 10px;
+    font-family: Arial, Helvetica, sans-serif;
+    font-weight: normal;
+    font-size: 20px;
+    line-height: 4;
+}
+.row{
+    display: flex;
+    flex-direction: row;
+}
 .left{
     float: left;
     margin: 0 1.5%;
