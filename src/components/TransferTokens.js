@@ -1,7 +1,7 @@
 import React, { useState } from 'react'
-// import web3 from '.././web3.js';
 import Web3 from 'web3';
 import { PM_TOKEN_ABI, PM_TOKEN_ADDRESS } from '../config';
+import '../App.css';
 // import ProductSelect from './ProductSelect';
 
 const TransferTokens = (props) => {
@@ -28,14 +28,17 @@ const TransferTokens = (props) => {
     }
 
   return (
-    <div>TransferTokens
-    <header>
-      <button onClick={() => conditionalTransfer(props.codes)}>Transfer with Conditions</button><br/>
-      <input onChange={e => setUserAccount(e.target.value)} placeholder="Account ID" />
-      <input disabled placeholder="ID" value={props.selectedCategory}/>
-
-      <input onChange={e => setAmount(e.target.value)} placeholder="Amount" />
-    </header>
+    <div>
+      <h1>Transfer Pocket Money</h1>
+    <form>
+      
+      <label className='label'>Enter the account address for the Pocket Money transfer:</label><br/>
+      <input onChange={e => setUserAccount(e.target.value)} placeholder="Account ID"/><br/>
+      {/* <input disabled placeholder="ID" value={props.selectedCategory}/> */}
+      <label className='label'>Enter the amount of Pocket Money to transfer:</label><br/>
+      <input onChange={e => setAmount(e.target.value)} placeholder="Amount" /><br/>
+      <button className='button-transfer' onClick={() => conditionalTransfer(props.codes)}>Transfer with Conditions</button>
+    </form>
     </div>
   )
 }

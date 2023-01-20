@@ -12,7 +12,6 @@ contract PmToken {
     uint256 public totalSupply = 1000; //2**256 -1;
     string public standard = "Pocket Money Token v1.0";
     uint8 public constant decimals = 18;
-    uint256[] public ids = [67000000, 50000000, 6700000050000000];
 
     mapping(address => uint256) balances;
     mapping(address => mapping(uint256 => Balance)) conditions;
@@ -150,23 +149,24 @@ contract PmToken {
     }
 
     function buyProducts(
+        address _from,
         address _to,
         uint256[] memory _ids,
         uint256[] memory _amounts,
         uint256[] memory _productCodes
-    ) public payable {
+    ) public {
         for (uint256 i = 0; i < _ids.length; i++) {
             // Check if the product is in the allowedProducts array for the sender
             bool productAllowed = false;
             for (
                 uint256 j = 0;
-                j < conditions[msg.sender][_ids[i]].allowedProducts.length;
+                j < conditions[_from][_ids[i]].allowedProducts.length;
                 j++
             ) {
                 if (
                     contains(
                         _productCodes,
-                        conditions[msg.sender][_ids[i]].allowedProducts[j]
+                        conditions[_from][_ids[i]].allowedProducts[j]
                     )
                 ) {
                     productAllowed = true;
@@ -177,19 +177,26 @@ contract PmToken {
             if (productAllowed) {
                 // Check if the sender has enough balance in the conditions mapping to make the purchase
                 require(
-                    conditions[msg.sender][_ids[i]].balance >= _amounts[i],
+                    conditions[_from][_ids[i]].balance >= _amounts[i],
                     "Not enough balance"
                 );
 
                 // Make the transfer
                 conditions[_to][_ids[i]].balance += _amounts[i];
-                conditions[msg.sender][_ids[i]].balance -= _amounts[i];
+                conditions[_from][_ids[i]].balance -= _amounts[i];
             } else {
                 revert(
                     "One or more of the product codes are not allowed for purchase"
                 );
             }
         }
+        uint256 totalAmount = 0;
+        // Calculate the total amount to be transferred and subtract from the balance of the sender
+        for (uint256 i = 0; i < _amounts.length; i++) {
+            totalAmount += _amounts[i];
+        }
+        balances[_from] -= totalAmount;
+        balances[_to] += totalAmount;
     }
 
     // reset conditions mapping

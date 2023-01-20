@@ -74,24 +74,25 @@ function AccountDetails() {
     }, []);
 
     // call resetCOndiitons function from smart contract
-    async function resetConditions(){
-        if (typeof window.ethereum !== 'undefined') {
-            console.log('MetaMask is installed');
-            const account = await window.ethereum.request({method: 'eth_requestAccounts'});
-            console.log("Account " + account);
-            const pmToken = new web3.eth.Contract(PM_TOKEN_ABI, PM_TOKEN_ADDRESS);
-            //get balance from smart contract
-            for (let i = 0; i < categories.length; i++) {
-                console.log(categories[i].value)
-                const reset = await pmToken.methods.resetConditions("0xc756763EeeE0dF9841710A72b441d06577Bb586e", categories[i].value).send({from: account[0]});
-            }
-        }
-    }
+    // async function resetConditions(){
+    //     if (typeof window.ethereum !== 'undefined') {
+    //         console.log('MetaMask is installed');
+    //         const account = await window.ethereum.request({method: 'eth_requestAccounts'});
+    //         console.log("Account " + account);
+    //         const pmToken = new web3.eth.Contract(PM_TOKEN_ABI, PM_TOKEN_ADDRESS);
+    //         //get balance from smart contract
+    //         for (let i = 0; i < categories.length; i++) {
+    //             console.log(categories[i].value)
+    //             const reset = await pmToken.methods.resetConditions("0xc756763EeeE0dF9841710A72b441d06577Bb586e", categories[i].value).send({from: account[0]});
+    //         }
+    //     }
+    // }
 
     const categoryLabelArr = categoryAmounts.map(category => {
         return <div key={category.value}>
-            <h4>{category.label}: {category.amount}$</h4>
-            <div>
+            <h4>Product Category: {category.label}: {category.amount} PMT</h4>
+            <div className='div-container'>Allowed Products:</div>
+            <div className='div-padding'>
                 { category.allowedCategories.map(allowedCategory => {
                     return <div key={allowedCategory.value}>
                         {allowedCategory.label}({allowedCategory.value})
@@ -102,18 +103,16 @@ function AccountDetails() {
     });
     
   return (
-    <div>
-        <p className="caption">Your balance is</p>
-        <h1 className="balance">{balance}</h1>
-        <p className="caption">Your address is</p>
-        <h1 className="address">{userAccount}</h1> <br/>
+    <div className='heading-container'>
+        <h2 className="caption">Your balance is:</h2>
+        <p className="balance">{balance}</p>
+        <h2 className="caption">Your address is:</h2>
+        <p className="address">{userAccount}</p> <br/>
         <div className='row' id="myDiv">
-            <h1 className='header'>Product Category:
+            <h2 className='header'>Current amount in each category:
                 <div className='labels'>{categoryLabelArr}</div>
-            </h1>
-            <h1 className='header'>Allowed Products:</h1>
-            <h1 className='header'>Available amount:</h1>
-            <button onClick={resetConditions}>Reset Conditions</button>
+            </h2>
+            {/* <button onClick={resetConditions}>Reset Conditions</button> */}
         </div>     
     </div>
   )

@@ -4,11 +4,14 @@ pragma solidity ^0.8.15;
 import "./PmToken.sol";
 
 contract Marketplace {
-
     PmToken token;
-
     string public name = "Marketplace";
     uint256 public productCount = 0;
+
+    struct Balance {
+        uint256 balance;
+        uint256[] allowedProducts;
+    }
 
     struct Product {
         uint256 id;
@@ -39,12 +42,53 @@ contract Marketplace {
 
     mapping(uint256 => Product) public products;
 
-    function InheritContract(address _pmtoken) public {
-        token = PmToken(_pmtoken);  
+    constructor() {
+        InheritContract(0x07c8cc44e2D7aEa8B818AD7C3733e06E2501248f);
     }
 
-    //create product
+    function InheritContract(address _pmtoken) public {
+        token = PmToken(_pmtoken);
+    }
+
+    function getAccountBalance(uint256 _id)
+        public
+        view
+        returns (uint256 balance)
+    {
+        PmToken.Balance memory accountBalance = token.getBalance(
+            msg.sender,
+            _id
+        );
+        return accountBalance.balance;
+    }
+
+    function buyProducts(
+        address _to,
+        uint256[] memory _ids,
+        uint256[] memory _amounts,
+        uint256[] memory _productCodes
+    ) public {
+        token.buyProducts(msg.sender, _to, _ids, _amounts, _productCodes);
+    }
+
+    function getBalance(address _account, uint256 _id)
+        public
+        view
+        returns (PmToken.Balance memory)
+    {
+        return token.getBalance(_account, _id);
+    }
+
+    function GetBalanceOfCurrAddress(uint256 _id)
+        public
+        view
+        returns (PmToken.Balance memory)
+    {
+        return getBalance(msg.sender, _id);
+    }
+
     function createProduct(
+        uint256 _categoryId,
         string memory _name,
         uint256 _productId,
         uint256 _price
@@ -56,8 +100,8 @@ contract Marketplace {
         //increment product count
         productCount++;
         //create the product
-        products[productCount] = Product(
-            productCount,
+        products[_productId] = Product(
+            _categoryId,
             _name,
             _productId,
             _price,
@@ -66,7 +110,7 @@ contract Marketplace {
         );
         //trigger an event
         emit ProductCreated(
-            productCount,
+            _categoryId,
             _name,
             _productId,
             _price,
@@ -75,16 +119,43 @@ contract Marketplace {
         );
     }
 
-    //purchase Product
-    function fetchProduct(uint256 _id, uint256[] memory _ids, uint256[] memory _amounts, uint256[] memory _productCodes) public payable {
+    function getProduct(uint256 _productId)
+        public
+        view
+        returns (Product memory)
+    {
+        return products[_productId];
+    }
+
+    function contains(uint256[] memory _array, uint256 _value)
+        internal
+        pure
+        returns (bool)
+    {
+        for (uint256 i = 0; i < _array.length; i++) {
+            if (_array[i] == _value) {
+                return true;
+            }
+        }
+        return false;
+    }
+
+    function purchaseProduct(uint256 _productId) public {
         //fetch the product
-        Product memory _product = products[_id];
+        Product memory _product = products[_productId];
         //fetch the owner
-        address payable _seller = payable(_product.owner);
-        //make sure the product has a valid id
-        require(_product.id > 0 && _product.id <= productCount);
-        //require that there is enough Ether in the transaction
-        require(msg.value >= _product.price);
+        address _seller = _product.owner;
+        require(
+            contains(
+                token.getBalance(msg.sender, _product.id).allowedProducts,
+                _product.productId
+            ),
+            "One or more of the product codes are not allowed for purchase"
+        );
+        require(
+            getAccountBalance(_product.id) >= _product.price,
+            "Your account balance is too low for this transaction. Please add funds to your account"
+        );
         //require that the product has not been purchased already
         require(!_product.purchased);
         //require that the buyer is not the seller
@@ -94,11 +165,18 @@ contract Marketplace {
         //mark as purchased
         _product.purchased = true;
         //update the product
-        products[_id] = _product;
-        // Transfer the tokens from the buyer to the seller
-        token.buyProducts(_seller, _ids, _amounts, _productCodes);
+        products[_productId] = _product;
+        //pay the seller by buying the product
+        uint256[] memory _ids = new uint256[](1);
+        _ids[0] = _product.id;
+        uint256[] memory _amounts = new uint256[](1);
+        _amounts[0] = _product.price;
+        uint256[] memory _productCodes = new uint256[](1);
+        _productCodes[0] = _product.productId;
+        buyProducts(_seller, _ids, _amounts, _productCodes);
+        //trigger an event
         emit ProductPurchased(
-            productCount,
+            _product.id,
             _product.name,
             _product.productId,
             _product.price,
@@ -106,15 +184,4 @@ contract Marketplace {
             true
         );
     }
-
-    // call the buyProducts function from the PmToken contract to transfer the tokens from the buyer to the seller when a product is purchased
-    function buyProducts(
-        address _to,
-        uint256[] memory _ids,
-        uint256[] memory _amounts,
-        uint256[] memory _productCodes
-    ) public payable {
-        token.buyProducts(_to, _ids, _amounts, _productCodes);
-    }
-
 }

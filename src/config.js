@@ -1,4 +1,4 @@
-export const PM_TOKEN_ADDRESS = '0x1CbD73E1961799B745f0eF8D2Af3633357D3D9B2'
+export const PM_TOKEN_ADDRESS = '0x07c8cc44e2D7aEa8B818AD7C3733e06E2501248f'
 export const PM_TOKEN_ABI = [
 	{
 		"inputs": [],
@@ -28,6 +28,11 @@ export const PM_TOKEN_ABI = [
 		"inputs": [
 			{
 				"internalType": "address",
+				"name": "_from",
+				"type": "address"
+			},
+			{
+				"internalType": "address",
 				"name": "_to",
 				"type": "address"
 			},
@@ -49,7 +54,7 @@ export const PM_TOKEN_ABI = [
 		],
 		"name": "buyProducts",
 		"outputs": [],
-		"stateMutability": "payable",
+		"stateMutability": "nonpayable",
 		"type": "function"
 	},
 	{
@@ -124,25 +129,6 @@ export const PM_TOKEN_ABI = [
 				"internalType": "struct PmToken.Balance",
 				"name": "",
 				"type": "tuple"
-			}
-		],
-		"stateMutability": "view",
-		"type": "function"
-	},
-	{
-		"inputs": [
-			{
-				"internalType": "uint256",
-				"name": "",
-				"type": "uint256"
-			}
-		],
-		"name": "ids",
-		"outputs": [
-			{
-				"internalType": "uint256",
-				"name": "",
-				"type": "uint256"
 			}
 		],
 		"stateMutability": "view",
@@ -238,381 +224,167 @@ export const PM_TOKEN_ABI = [
 	}
 ]
 
-// export const PM_TOKEN_ADDRESS = '0x7b7963C1f9D6Ccad7C5A6482BA08FEecc5f4DbfD'
-// export const PM_TOKEN_ABI =[
-// 	{
-// 		"inputs": [],
-// 		"stateMutability": "nonpayable",
-// 		"type": "constructor"
-// 	},
-// 	{
-// 		"inputs": [
-// 			{
-// 				"internalType": "address",
-// 				"name": "_codestorage",
-// 				"type": "address"
-// 			}
-// 		],
-// 		"name": "InheritContract",
-// 		"outputs": [],
-// 		"stateMutability": "nonpayable",
-// 		"type": "function"
-// 	},
-// 	{
-// 		"inputs": [
-// 			{
-// 				"internalType": "address",
-// 				"name": "account",
-// 				"type": "address"
-// 			}
-// 		],
-// 		"name": "balanceOf",
-// 		"outputs": [
-// 			{
-// 				"internalType": "uint256",
-// 				"name": "",
-// 				"type": "uint256"
-// 			}
-// 		],
-// 		"stateMutability": "view",
-// 		"type": "function"
-// 	},
-// 	{
-// 		"inputs": [
-// 			{
-// 				"internalType": "address",
-// 				"name": "_to",
-// 				"type": "address"
-// 			},
-// 			{
-// 				"internalType": "uint256",
-// 				"name": "_amount",
-// 				"type": "uint256"
-// 			}
-// 		],
-// 		"name": "buyProducts",
-// 		"outputs": [],
-// 		"stateMutability": "payable",
-// 		"type": "function"
-// 	},
-// 	{
-// 		"inputs": [],
-// 		"name": "compareArrays",
-// 		"outputs": [
-// 			{
-// 				"internalType": "bool",
-// 				"name": "",
-// 				"type": "bool"
-// 			}
-// 		],
-// 		"stateMutability": "view",
-// 		"type": "function"
-// 	},
-// 	{
-// 		"inputs": [],
-// 		"name": "counter",
-// 		"outputs": [
-// 			{
-// 				"internalType": "uint256",
-// 				"name": "",
-// 				"type": "uint256"
-// 			}
-// 		],
-// 		"stateMutability": "view",
-// 		"type": "function"
-// 	},
-// 	{
-// 		"inputs": [],
-// 		"name": "decimals",
-// 		"outputs": [
-// 			{
-// 				"internalType": "uint8",
-// 				"name": "",
-// 				"type": "uint8"
-// 			}
-// 		],
-// 		"stateMutability": "view",
-// 		"type": "function"
-// 	},
-// 	{
-// 		"inputs": [],
-// 		"name": "deleteAllowedProducts",
-// 		"outputs": [],
-// 		"stateMutability": "nonpayable",
-// 		"type": "function"
-// 	},
-// 	{
-// 		"inputs": [
-// 			{
-// 				"internalType": "address",
-// 				"name": "_address",
-// 				"type": "address"
-// 			}
-// 		],
-// 		"name": "getBalanceToConditions",
-// 		"outputs": [
-// 			{
-// 				"internalType": "uint256[]",
-// 				"name": "",
-// 				"type": "uint256[]"
-// 			}
-// 		],
-// 		"stateMutability": "view",
-// 		"type": "function"
-// 	},
-// 	{
-// 		"inputs": [
-// 			{
-// 				"internalType": "address",
-// 				"name": "_address",
-// 				"type": "address"
-// 			}
-// 		],
-// 		"name": "getBalanceWithConditions",
-// 		"outputs": [
-// 			{
-// 				"components": [
-// 					{
-// 						"internalType": "uint256",
-// 						"name": "balance",
-// 						"type": "uint256"
-// 					},
-// 					{
-// 						"internalType": "uint256[]",
-// 						"name": "allowedProducts",
-// 						"type": "uint256[]"
-// 					}
-// 				],
-// 				"internalType": "struct PmToken.Balance[]",
-// 				"name": "",
-// 				"type": "tuple[]"
-// 			}
-// 		],
-// 		"stateMutability": "view",
-// 		"type": "function"
-// 	},
-// 	{
-// 		"inputs": [
-// 			{
-// 				"internalType": "address",
-// 				"name": "_address",
-// 				"type": "address"
-// 			}
-// 		],
-// 		"name": "getConditions",
-// 		"outputs": [
-// 			{
-// 				"internalType": "uint256[]",
-// 				"name": "",
-// 				"type": "uint256[]"
-// 			}
-// 		],
-// 		"stateMutability": "view",
-// 		"type": "function"
-// 	},
-// 	{
-// 		"inputs": [
-// 			{
-// 				"internalType": "address",
-// 				"name": "_address",
-// 				"type": "address"
-// 			}
-// 		],
-// 		"name": "isEligibleSeller",
-// 		"outputs": [
-// 			{
-// 				"internalType": "bool",
-// 				"name": "",
-// 				"type": "bool"
-// 			}
-// 		],
-// 		"stateMutability": "view",
-// 		"type": "function"
-// 	},
-// 	{
-// 		"inputs": [],
-// 		"name": "name",
-// 		"outputs": [
-// 			{
-// 				"internalType": "string",
-// 				"name": "",
-// 				"type": "string"
-// 			}
-// 		],
-// 		"stateMutability": "view",
-// 		"type": "function"
-// 	},
-// 	{
-// 		"inputs": [],
-// 		"name": "standard",
-// 		"outputs": [
-// 			{
-// 				"internalType": "string",
-// 				"name": "",
-// 				"type": "string"
-// 			}
-// 		],
-// 		"stateMutability": "view",
-// 		"type": "function"
-// 	},
-// 	{
-// 		"inputs": [],
-// 		"name": "symbol",
-// 		"outputs": [
-// 			{
-// 				"internalType": "string",
-// 				"name": "",
-// 				"type": "string"
-// 			}
-// 		],
-// 		"stateMutability": "view",
-// 		"type": "function"
-// 	},
-// 	{
-// 		"inputs": [],
-// 		"name": "testAddress",
-// 		"outputs": [
-// 			{
-// 				"internalType": "address",
-// 				"name": "",
-// 				"type": "address"
-// 			}
-// 		],
-// 		"stateMutability": "view",
-// 		"type": "function"
-// 	},
-// 	{
-// 		"inputs": [],
-// 		"name": "totalSupply",
-// 		"outputs": [
-// 			{
-// 				"internalType": "uint256",
-// 				"name": "",
-// 				"type": "uint256"
-// 			}
-// 		],
-// 		"stateMutability": "view",
-// 		"type": "function"
-// 	},
-// 	{
-// 		"inputs": [
-// 			{
-// 				"internalType": "address",
-// 				"name": "_to",
-// 				"type": "address"
-// 			},
-// 			{
-// 				"internalType": "uint256",
-// 				"name": "_amount",
-// 				"type": "uint256"
-// 			}
-// 		],
-// 		"name": "transfer",
-// 		"outputs": [],
-// 		"stateMutability": "payable",
-// 		"type": "function"
-// 	},
-// 	{
-// 		"inputs": [
-// 			{
-// 				"internalType": "address",
-// 				"name": "_to",
-// 				"type": "address"
-// 			},
-// 			{
-// 				"internalType": "uint256",
-// 				"name": "_amount",
-// 				"type": "uint256"
-// 			},
-// 			{
-// 				"internalType": "uint256[]",
-// 				"name": "_conditions",
-// 				"type": "uint256[]"
-// 			}
-// 		],
-// 		"name": "transferWithConditions",
-// 		"outputs": [],
-// 		"stateMutability": "payable",
-// 		"type": "function"
-// 	}
-// ]
-
-
-export const CODESTORAGE_ADDRESS = '0x31B263F5f1955EBC53Cb1Df68c92084e35bc068e'
-export const CODESTORAGE_ABI = [
-	{
-		"inputs": [
-			{
-				"internalType": "uint256",
-				"name": "",
-				"type": "uint256"
-			}
-		],
-		"name": "allowedProducts",
-		"outputs": [
-			{
-				"internalType": "uint256",
-				"name": "",
-				"type": "uint256"
-			}
-		],
-		"stateMutability": "view",
-		"type": "function"
-	},
-	{
-		"inputs": [
-			{
-				"internalType": "uint256",
-				"name": "",
-				"type": "uint256"
-			}
-		],
-		"name": "allowedProductsValues",
-		"outputs": [
-			{
-				"internalType": "uint256",
-				"name": "",
-				"type": "uint256"
-			}
-		],
-		"stateMutability": "view",
-		"type": "function"
-	},
-	{
-		"inputs": [
-			{
-				"internalType": "uint256",
-				"name": "",
-				"type": "uint256"
-			}
-		],
-		"name": "categoriesToBuy",
-		"outputs": [
-			{
-				"internalType": "uint256",
-				"name": "",
-				"type": "uint256"
-			}
-		],
-		"stateMutability": "view",
-		"type": "function"
-	},
+export const MARKETPLACE_ADDRESS = '0x95711bA7E3B9151A6b423D605E060d835f980633'
+export const MARKETPLACE_ABI = [
 	{
 		"inputs": [],
-		"name": "compareArrays",
-		"outputs": [
+		"stateMutability": "nonpayable",
+		"type": "constructor"
+	},
+	{
+		"anonymous": false,
+		"inputs": [
 			{
+				"indexed": false,
+				"internalType": "uint256",
+				"name": "id",
+				"type": "uint256"
+			},
+			{
+				"indexed": false,
+				"internalType": "string",
+				"name": "name",
+				"type": "string"
+			},
+			{
+				"indexed": false,
+				"internalType": "uint256",
+				"name": "productId",
+				"type": "uint256"
+			},
+			{
+				"indexed": false,
+				"internalType": "uint256",
+				"name": "price",
+				"type": "uint256"
+			},
+			{
+				"indexed": false,
+				"internalType": "address",
+				"name": "owner",
+				"type": "address"
+			},
+			{
+				"indexed": false,
 				"internalType": "bool",
-				"name": "",
+				"name": "purchased",
 				"type": "bool"
 			}
 		],
+		"name": "ProductCreated",
+		"type": "event"
+	},
+	{
+		"anonymous": false,
+		"inputs": [
+			{
+				"indexed": false,
+				"internalType": "uint256",
+				"name": "id",
+				"type": "uint256"
+			},
+			{
+				"indexed": false,
+				"internalType": "string",
+				"name": "name",
+				"type": "string"
+			},
+			{
+				"indexed": false,
+				"internalType": "uint256",
+				"name": "productId",
+				"type": "uint256"
+			},
+			{
+				"indexed": false,
+				"internalType": "uint256",
+				"name": "price",
+				"type": "uint256"
+			},
+			{
+				"indexed": false,
+				"internalType": "address",
+				"name": "owner",
+				"type": "address"
+			},
+			{
+				"indexed": false,
+				"internalType": "bool",
+				"name": "purchased",
+				"type": "bool"
+			}
+		],
+		"name": "ProductPurchased",
+		"type": "event"
+	},
+	{
+		"inputs": [
+			{
+				"internalType": "uint256",
+				"name": "_id",
+				"type": "uint256"
+			}
+		],
+		"name": "GetBalanceOfCurrAddress",
+		"outputs": [
+			{
+				"components": [
+					{
+						"internalType": "uint256",
+						"name": "balance",
+						"type": "uint256"
+					},
+					{
+						"internalType": "uint256[]",
+						"name": "allowedProducts",
+						"type": "uint256[]"
+					}
+				],
+				"internalType": "struct PmToken.Balance",
+				"name": "",
+				"type": "tuple"
+			}
+		],
 		"stateMutability": "view",
 		"type": "function"
 	},
 	{
-		"inputs": [],
-		"name": "deleteAllowedProducts",
+		"inputs": [
+			{
+				"internalType": "address",
+				"name": "_pmtoken",
+				"type": "address"
+			}
+		],
+		"name": "InheritContract",
+		"outputs": [],
+		"stateMutability": "nonpayable",
+		"type": "function"
+	},
+	{
+		"inputs": [
+			{
+				"internalType": "address",
+				"name": "_to",
+				"type": "address"
+			},
+			{
+				"internalType": "uint256[]",
+				"name": "_ids",
+				"type": "uint256[]"
+			},
+			{
+				"internalType": "uint256[]",
+				"name": "_amounts",
+				"type": "uint256[]"
+			},
+			{
+				"internalType": "uint256[]",
+				"name": "_productCodes",
+				"type": "uint256[]"
+			}
+		],
+		"name": "buyProducts",
 		"outputs": [],
 		"stateMutability": "nonpayable",
 		"type": "function"
@@ -621,73 +393,43 @@ export const CODESTORAGE_ABI = [
 		"inputs": [
 			{
 				"internalType": "uint256",
-				"name": "",
+				"name": "_categoryId",
+				"type": "uint256"
+			},
+			{
+				"internalType": "string",
+				"name": "_name",
+				"type": "string"
+			},
+			{
+				"internalType": "uint256",
+				"name": "_productId",
+				"type": "uint256"
+			},
+			{
+				"internalType": "uint256",
+				"name": "_price",
 				"type": "uint256"
 			}
 		],
-		"name": "eligibleSellers",
-		"outputs": [
-			{
-				"internalType": "address",
-				"name": "",
-				"type": "address"
-			}
-		],
-		"stateMutability": "view",
-		"type": "function"
-	},
-	{
-		"inputs": [],
-		"name": "getAllowedProducts",
-		"outputs": [
-			{
-				"internalType": "uint256[]",
-				"name": "",
-				"type": "uint256[]"
-			}
-		],
-		"stateMutability": "view",
-		"type": "function"
-	},
-	{
-		"inputs": [],
-		"name": "getAllowedProductsValues",
-		"outputs": [
-			{
-				"internalType": "uint256[]",
-				"name": "",
-				"type": "uint256[]"
-			}
-		],
-		"stateMutability": "view",
-		"type": "function"
-	},
-	{
-		"inputs": [],
-		"name": "getCategoriesToBuy",
-		"outputs": [
-			{
-				"internalType": "uint256[]",
-				"name": "",
-				"type": "uint256[]"
-			}
-		],
-		"stateMutability": "view",
+		"name": "createProduct",
+		"outputs": [],
+		"stateMutability": "nonpayable",
 		"type": "function"
 	},
 	{
 		"inputs": [
 			{
 				"internalType": "uint256",
-				"name": "_subCode",
+				"name": "_id",
 				"type": "uint256"
 			}
 		],
-		"name": "getCategoryFromMapping",
+		"name": "getAccountBalance",
 		"outputs": [
 			{
 				"internalType": "uint256",
-				"name": "",
+				"name": "balance",
 				"type": "uint256"
 			}
 		],
@@ -698,16 +440,105 @@ export const CODESTORAGE_ABI = [
 		"inputs": [
 			{
 				"internalType": "address",
-				"name": "_address",
+				"name": "_account",
 				"type": "address"
 			},
 			{
 				"internalType": "uint256",
-				"name": "_key",
+				"name": "_id",
 				"type": "uint256"
 			}
 		],
-		"name": "getCodesOfAllowedProducts",
+		"name": "getBalance",
+		"outputs": [
+			{
+				"components": [
+					{
+						"internalType": "uint256",
+						"name": "balance",
+						"type": "uint256"
+					},
+					{
+						"internalType": "uint256[]",
+						"name": "allowedProducts",
+						"type": "uint256[]"
+					}
+				],
+				"internalType": "struct PmToken.Balance",
+				"name": "",
+				"type": "tuple"
+			}
+		],
+		"stateMutability": "view",
+		"type": "function"
+	},
+	{
+		"inputs": [
+			{
+				"internalType": "uint256",
+				"name": "_productId",
+				"type": "uint256"
+			}
+		],
+		"name": "getProduct",
+		"outputs": [
+			{
+				"components": [
+					{
+						"internalType": "uint256",
+						"name": "id",
+						"type": "uint256"
+					},
+					{
+						"internalType": "string",
+						"name": "name",
+						"type": "string"
+					},
+					{
+						"internalType": "uint256",
+						"name": "productId",
+						"type": "uint256"
+					},
+					{
+						"internalType": "uint256",
+						"name": "price",
+						"type": "uint256"
+					},
+					{
+						"internalType": "address",
+						"name": "owner",
+						"type": "address"
+					},
+					{
+						"internalType": "bool",
+						"name": "purchased",
+						"type": "bool"
+					}
+				],
+				"internalType": "struct Marketplace.Product",
+				"name": "",
+				"type": "tuple"
+			}
+		],
+		"stateMutability": "view",
+		"type": "function"
+	},
+	{
+		"inputs": [],
+		"name": "name",
+		"outputs": [
+			{
+				"internalType": "string",
+				"name": "",
+				"type": "string"
+			}
+		],
+		"stateMutability": "view",
+		"type": "function"
+	},
+	{
+		"inputs": [],
+		"name": "productCount",
 		"outputs": [
 			{
 				"internalType": "uint256",
@@ -719,31 +550,43 @@ export const CODESTORAGE_ABI = [
 		"type": "function"
 	},
 	{
-		"inputs": [],
-		"name": "getEligibleSellers",
-		"outputs": [
-			{
-				"internalType": "address[]",
-				"name": "",
-				"type": "address[]"
-			}
-		],
-		"stateMutability": "view",
-		"type": "function"
-	},
-	{
 		"inputs": [
 			{
-				"internalType": "address",
-				"name": "_address",
-				"type": "address"
+				"internalType": "uint256",
+				"name": "",
+				"type": "uint256"
 			}
 		],
-		"name": "isEligibleSeller",
+		"name": "products",
 		"outputs": [
 			{
+				"internalType": "uint256",
+				"name": "id",
+				"type": "uint256"
+			},
+			{
+				"internalType": "string",
+				"name": "name",
+				"type": "string"
+			},
+			{
+				"internalType": "uint256",
+				"name": "productId",
+				"type": "uint256"
+			},
+			{
+				"internalType": "uint256",
+				"name": "price",
+				"type": "uint256"
+			},
+			{
+				"internalType": "address",
+				"name": "owner",
+				"type": "address"
+			},
+			{
 				"internalType": "bool",
-				"name": "",
+				"name": "purchased",
 				"type": "bool"
 			}
 		],
@@ -753,129 +596,14 @@ export const CODESTORAGE_ABI = [
 	{
 		"inputs": [
 			{
-				"internalType": "uint256[]",
-				"name": "_codes",
-				"type": "uint256[]"
-			}
-		],
-		"name": "setAllowedProductsValues",
-		"outputs": [],
-		"stateMutability": "nonpayable",
-		"type": "function"
-	},
-	{
-		"inputs": [
-			{
-				"internalType": "uint256[]",
-				"name": "_categoriesToBuy",
-				"type": "uint256[]"
-			}
-		],
-		"name": "setCategoriesToBuy",
-		"outputs": [],
-		"stateMutability": "nonpayable",
-		"type": "function"
-	},
-	{
-		"inputs": [
-			{
 				"internalType": "uint256",
-				"name": "_subCode",
-				"type": "uint256"
-			},
-			{
-				"internalType": "uint256",
-				"name": "_code",
+				"name": "_productId",
 				"type": "uint256"
 			}
 		],
-		"name": "setCategoryToMapping",
+		"name": "purchaseProduct",
 		"outputs": [],
 		"stateMutability": "nonpayable",
-		"type": "function"
-	},
-	{
-		"inputs": [
-			{
-				"internalType": "address",
-				"name": "_kidAddress",
-				"type": "address"
-			},
-			{
-				"internalType": "uint256[]",
-				"name": "_codes",
-				"type": "uint256[]"
-			}
-		],
-		"name": "setCodesByAdress",
-		"outputs": [],
-		"stateMutability": "nonpayable",
-		"type": "function"
-	},
-	{
-		"inputs": [
-			{
-				"internalType": "address",
-				"name": "_address",
-				"type": "address"
-			},
-			{
-				"internalType": "uint256",
-				"name": "_key",
-				"type": "uint256"
-			},
-			{
-				"internalType": "uint256",
-				"name": "_value",
-				"type": "uint256"
-			}
-		],
-		"name": "setCodesOfAllowedProducts",
-		"outputs": [],
-		"stateMutability": "nonpayable",
-		"type": "function"
-	},
-	{
-		"inputs": [
-			{
-				"internalType": "address[]",
-				"name": "_eligibleSellers",
-				"type": "address[]"
-			}
-		],
-		"name": "setEligibleSellers",
-		"outputs": [],
-		"stateMutability": "nonpayable",
-		"type": "function"
-	}
-]
-
-export const TEST1_ADDRESS = '0x993059092A17089b73E64905535923E9B9c0F238'
-export const TEST1_ABI = [
-	{
-		"inputs": [
-			{
-				"internalType": "uint256",
-				"name": "_test",
-				"type": "uint256"
-			}
-		],
-		"name": "setTest",
-		"outputs": [],
-		"stateMutability": "nonpayable",
-		"type": "function"
-	},
-	{
-		"inputs": [],
-		"name": "test",
-		"outputs": [
-			{
-				"internalType": "uint256",
-				"name": "",
-				"type": "uint256"
-			}
-		],
-		"stateMutability": "view",
 		"type": "function"
 	}
 ]

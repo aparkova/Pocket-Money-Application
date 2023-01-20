@@ -2,7 +2,6 @@ import React, {useState} from 'react'
 import Group from './Group';
 import Select from 'react-select';
 import {clothing, food} from '.././options';
-import Web3 from 'web3';
 import TransferTokens from './TransferTokens';
 import { categories } from '../categories.js';
 
