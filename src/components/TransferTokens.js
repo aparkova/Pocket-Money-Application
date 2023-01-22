@@ -19,10 +19,24 @@ const TransferTokens = (props) => {
         const pmToken = new web3.eth.Contract(PM_TOKEN_ABI, PM_TOKEN_ADDRESS);
         //send tokens to another account
         //get the value of the input field
-        const tx = await pmToken.methods.conditionalTransfer(userAccount, props.selectedCategory, amount, _allowedProducts).send({from: account[0], gas: 1000000});
+        const tx = await pmToken.methods.conditionalTransfer(userAccount, props.selectedCategory, amount, _allowedProducts).send({from: account[0], gas: 2000000});
         console.log(tx);
         const receipt = await web3.eth.getTransactionReceipt(tx.transactionHash);
         console.log(receipt);
+        console.log(`${amount} PM sent to ${userAccount}`);
+      }
+    }
+
+    async function transfer() {
+      if (typeof window.ethereum !== 'undefined') {
+        console.log('MetaMask is installed');
+        const account = await window.ethereum.request({method: 'eth_requestAccounts'});
+        console.log(account);
+        const pmToken = new web3.eth.Contract(PM_TOKEN_ABI, PM_TOKEN_ADDRESS);
+        //send tokens to another account
+        //get the value of the input field
+        const tx = await pmToken.methods.transfer(userAccount, amount).send({from: account[0], gas: 3000000});
+        console.log(tx);
         console.log(`${amount} PM sent to ${userAccount}`);
       }
     }
@@ -37,7 +51,11 @@ const TransferTokens = (props) => {
       {/* <input disabled placeholder="ID" value={props.selectedCategory}/> */}
       <label className='label'>Enter the amount of Pocket Money to transfer:</label><br/>
       <input onChange={e => setAmount(e.target.value)} placeholder="Amount" /><br/>
-      <button className='button-transfer' onClick={() => conditionalTransfer(props.codes)}>Transfer with Conditions</button>
+      <button type='button'className='button-transfer' onClick={() => conditionalTransfer(props.codes)}>Transfer with Conditions</button><br/>
+      
+      <input onChange={e => setAmount(e.target.value)} placeholder="Amount"/><br/> 
+      <input onChange={e => setUserAccount(e.target.value)} placeholder="Account ID"/><br/>
+      <button type='button' className='button-transfer' onClick={() => transfer()}>Transfer</button>
     </form>
     </div>
   )

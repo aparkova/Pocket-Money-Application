@@ -24,7 +24,7 @@ function Marketplace() {
         const productData = { categoryId: category.value, name: product.label, productId: product.value, price: product.price }
         productDataArray.push(productData);
         const result = await marketplace.methods.createProduct(category.value, product.label, product.value, product.price)
-            .send({from: account[0], gas: 6721975});
+            .send({from: account[3], gas: 6721975});
           console.log(result);
       }
     }
@@ -64,21 +64,33 @@ function Marketplace() {
     }
   }
 
-  // async function InheritContract(){
-  //   if (typeof window.ethereum !== 'undefined') {
-  //     const account = await web3.eth.getAccounts(); 
-  //     console.log(account[0]);
-  //     const marketplace = new web3.eth.Contract(MARKETPLACE_ABI, MARKETPLACE_ADDRESS);
-  //     const result = await marketplace.methods.InheritContract('0xA7217D9232A1713EAE28033c2998ddC9fCdD5254').call();
-  //       console.log(result);
-  //  }
-  // }
+  async function InheritContract(){
+    if (typeof window.ethereum !== 'undefined') {
+      const account = await web3.eth.getAccounts(); 
+      console.log(account[0]);
+      const marketplace = new web3.eth.Contract(MARKETPLACE_ABI, MARKETPLACE_ADDRESS);
+      const result = await marketplace.methods.InheritContract('0xb4D6611b9C252009B4DACF2eBB9D1FA9Cb34adAE').send({from: account[0]});
+        console.log(result);
+   }
+  }
+
+  async function getAccountBalance(){
+    if (typeof window.ethereum !== 'undefined') {
+      const account = await web3.eth.getAccounts(); 
+      console.log(account[0]);
+      const marketplace = new web3.eth.Contract(MARKETPLACE_ABI, MARKETPLACE_ADDRESS);
+      const result = await marketplace.methods.getAccountBalance(67000000).call({from: account[0]});
+      console.log("balance of account", result);
+    }
+  }
+
 
   return (
     <div className='marketplace'>
       <h1>Marketplace</h1><br/>
-      {/* <button onClick={createProducts}>create products</button> */}
-      {/* <button onClick={InheritContract}>Inherit Contract</button> */}
+      <button onClick={createProducts}>create products</button>
+      <button onClick={InheritContract}>Inherit Contract</button>
+      <button onClick={getAccountBalance}>get balance</button>
       {/* <div className="product-grid">
         <ul>
           {getProducts.map(p => (

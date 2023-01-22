@@ -1,4 +1,4 @@
-export const PM_TOKEN_ADDRESS = '0x07c8cc44e2D7aEa8B818AD7C3733e06E2501248f'
+export const PM_TOKEN_ADDRESS = '0xb4D6611b9C252009B4DACF2eBB9D1FA9Cb34adAE'
 export const PM_TOKEN_ABI = [
 	{
 		"inputs": [],
@@ -224,7 +224,7 @@ export const PM_TOKEN_ABI = [
 	}
 ]
 
-export const MARKETPLACE_ADDRESS = '0x95711bA7E3B9151A6b423D605E060d835f980633'
+export const MARKETPLACE_ADDRESS = '0x9A4789e38AC5c8246613AD0AA35943fDdBdf8F87'
 export const MARKETPLACE_ABI = [
 	{
 		"inputs": [],
@@ -524,6 +524,37 @@ export const MARKETPLACE_ABI = [
 		"type": "function"
 	},
 	{
+		"inputs": [
+			{
+				"internalType": "address",
+				"name": "_address",
+				"type": "address"
+			}
+		],
+		"name": "getPurchases",
+		"outputs": [
+			{
+				"components": [
+					{
+						"internalType": "uint256",
+						"name": "productId",
+						"type": "uint256"
+					},
+					{
+						"internalType": "uint256",
+						"name": "quantity",
+						"type": "uint256"
+					}
+				],
+				"internalType": "struct Marketplace.Purchase[]",
+				"name": "",
+				"type": "tuple[]"
+			}
+		],
+		"stateMutability": "view",
+		"type": "function"
+	},
+	{
 		"inputs": [],
 		"name": "name",
 		"outputs": [
@@ -604,6 +635,35 @@ export const MARKETPLACE_ABI = [
 		"name": "purchaseProduct",
 		"outputs": [],
 		"stateMutability": "nonpayable",
+		"type": "function"
+	},
+	{
+		"inputs": [
+			{
+				"internalType": "address",
+				"name": "",
+				"type": "address"
+			},
+			{
+				"internalType": "uint256",
+				"name": "",
+				"type": "uint256"
+			}
+		],
+		"name": "purchases",
+		"outputs": [
+			{
+				"internalType": "uint256",
+				"name": "productId",
+				"type": "uint256"
+			},
+			{
+				"internalType": "uint256",
+				"name": "quantity",
+				"type": "uint256"
+			}
+		],
+		"stateMutability": "view",
 		"type": "function"
 	}
 ]

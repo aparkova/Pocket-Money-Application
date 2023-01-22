@@ -1,14 +1,20 @@
-import React, { useState, useEffect } from 'react'
+import React, { useState, useEffect, useMemo } from 'react'
 import Web3 from 'web3';
 import { PM_TOKEN_ABI, PM_TOKEN_ADDRESS } from '../config';
+import { MARKETPLACE_ABI, MARKETPLACE_ADDRESS } from '../config';
 import '../App.css';
 import { categories } from '../categories.js';
 
 
 function AccountDetails() {
-    const[balance, setBalance] = useState(0);
-    const[userAccount, setUserAccount] = useState(0);
+    const [balance, setBalance] = useState(0);
+    const [userAccount, setUserAccount] = useState(0);
     const [categoryAmounts, setCategoryAmounts] = useState([]);
+    const [purchasesData, setPurchasesData] = useState([]);
+    // const [hasAllowedProducts, setHasAllowedProducts] = useState(false);
+
+    console.log("balance",balance)
+    console.log("purchasesData",purchasesData)
 
     const web3 = new Web3(Web3.givenProvider || "http://localhost:7545"); 
 
@@ -67,13 +73,28 @@ function AccountDetails() {
                 }
 
                 setCategoryAmounts(Object.values(categoryAmountsCopy))
+
             }
         }        
+
+        async function getPurchases(){
+            if (typeof window.ethereum !== 'undefined') {
+                const account = await window.ethereum.request({method: 'eth_requestAccounts'});
+                const marketplace = new web3.eth.Contract(MARKETPLACE_ABI, MARKETPLACE_ADDRESS);
+                const purchases = await marketplace.methods.getPurchases(account[0]).call();
+                console.log("purchases", purchases);
+                // set purchases data to state
+                let purchasesData = [...purchases]
+                setPurchasesData(purchasesData);
+                console.log("purchasesArr", purchasesData);
+            }
+        }         
         balanceOf();
         getBalance();
+        getPurchases();
     }, []);
 
-    // call resetCOndiitons function from smart contract
+    // call resetCondiitons function from smart contract
     // async function resetConditions(){
     //     if (typeof window.ethereum !== 'undefined') {
     //         console.log('MetaMask is installed');
@@ -87,31 +108,42 @@ function AccountDetails() {
     //         }
     //     }
     // }
-
+    
     const categoryLabelArr = categoryAmounts.map(category => {
         return <div key={category.value}>
             <h4>Product Category: {category.label}: {category.amount} PMT</h4>
             <div className='div-container'>Allowed Products:</div>
             <div className='div-padding'>
                 { category.allowedCategories.map(allowedCategory => {
+                   // get the quantity from the purchasesData array for each productId and display it
+                    let quantity = purchasesData.filter(purchase => purchase.productId == allowedCategory.value);
+                    console.log("quantity", quantity);
                     return <div key={allowedCategory.value}>
-                        {allowedCategory.label}({allowedCategory.value})
-                    </div>})
-                }
+                        {/* get the quantity attribute from the array and display it next to the product's label
+                         */}
+                        <p>{allowedCategory.label} - Quantity: {quantity.length > 0 ? quantity[0].quantity : '0'}</p>
+
+                    </div>
+                })}
             </div>
         </div>
     });
+
+    
+
+    
     
   return (
     <div className='heading-container'>
         <h2 className="caption">Your balance is:</h2>
+        {/* <button onClick={getPurchases}>Get Purchases</button> */}
         <p className="balance">{balance}</p>
         <h2 className="caption">Your address is:</h2>
         <p className="address">{userAccount}</p> <br/>
         <div className='row' id="myDiv">
-            <h2 className='header'>Current amount in each category:
-                <div className='labels'>{categoryLabelArr}</div>
-            </h2>
+        <h2 className='header'>Current amount in each category:
+            <div className='labels'>{categoryLabelArr}</div>
+        </h2>
             {/* <button onClick={resetConditions}>Reset Conditions</button> */}
         </div>     
     </div>
