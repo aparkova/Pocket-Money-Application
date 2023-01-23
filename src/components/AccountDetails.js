@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useMemo } from 'react'
+import React, { useState, useEffect, useRef } from 'react'
 import Web3 from 'web3';
 import { PM_TOKEN_ABI, PM_TOKEN_ADDRESS } from '../config';
 import { MARKETPLACE_ABI, MARKETPLACE_ADDRESS } from '../config';
@@ -11,12 +11,18 @@ function AccountDetails() {
     const [userAccount, setUserAccount] = useState(0);
     const [categoryAmounts, setCategoryAmounts] = useState([]);
     const [purchasesData, setPurchasesData] = useState([]);
-    // const [hasAllowedProducts, setHasAllowedProducts] = useState(false);
+    const [hasAllowedProducts, setHasAllowedProducts] = useState(false);
 
     console.log("balance",balance)
     console.log("purchasesData",purchasesData)
 
     const web3 = new Web3(Web3.givenProvider || "http://localhost:7545"); 
+
+    const categoryAmountsRef = useRef([]);
+
+    useEffect(() => {
+        categoryAmountsRef.current = categoryAmounts;
+    }, [categoryAmounts]);
 
     useEffect(() => {
         async function balanceOf() {
@@ -88,11 +94,23 @@ function AccountDetails() {
                 setPurchasesData(purchasesData);
                 console.log("purchasesArr", purchasesData);
             }
-        }         
+        }       
+        function checkAllowedProducts() {
+            let hasAllowedProducts = false;
+            for (let i = 0; i < categoryAmounts.length; i++) {
+                if (categoryAmounts[i].amount > 0) {
+                    hasAllowedProducts = true;
+                    break;
+                }
+            }
+            setHasAllowedProducts(hasAllowedProducts);
+        }
+      
         balanceOf();
         getBalance();
         getPurchases();
-    }, []);
+        checkAllowedProducts();
+    }, [categoryAmountsRef.current]);
 
     // call resetCondiitons function from smart contract
     // async function resetConditions(){
@@ -141,9 +159,10 @@ function AccountDetails() {
         <h2 className="caption">Your address is:</h2>
         <p className="address">{userAccount}</p> <br/>
         <div className='row' id="myDiv">
-        <h2 className='header'>Current amount in each category:
-            <div className='labels'>{categoryLabelArr}</div>
-        </h2>
+        {hasAllowedProducts ? 
+            <h2 className='header'>Current amount in each category:
+                <div className='labels'>{categoryLabelArr}</div>
+            </h2> : null}
             {/* <button onClick={resetConditions}>Reset Conditions</button> */}
         </div>     
     </div>
