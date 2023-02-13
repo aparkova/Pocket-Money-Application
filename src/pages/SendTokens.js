@@ -7,8 +7,6 @@ function SendTokens() {
     <div className='sendtokens'>
         <h1>Select conditions</h1>
         <ProductSelect/>
-        {/* <h1>Database</h1>
-        <SetCodes/> */}
     </div>
   )
 }
