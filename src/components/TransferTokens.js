@@ -19,11 +19,13 @@ const TransferTokens = (props) => {
         const pmToken = new web3.eth.Contract(PM_TOKEN_ABI, PM_TOKEN_ADDRESS);
         //send tokens to another account
         //get the value of the input field
+        try{
         const tx = await pmToken.methods.conditionalTransfer(userAccount, props.selectedCategory, amount, _allowedProducts).send({from: account[0], gas: 2000000});
         console.log(tx);
-        const receipt = await web3.eth.getTransactionReceipt(tx.transactionHash);
-        console.log(receipt);
-        console.log(`${amount} PM sent to ${userAccount}`);
+        alert("Transaction successful! :)")
+        } catch {
+          alert("Transaction failed. Please check your account balance and try again.");
+        }
       }
     }
 

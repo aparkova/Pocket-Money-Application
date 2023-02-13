@@ -58,56 +58,39 @@ function Marketplace() {
       const account = await web3.eth.getAccounts(); 
       console.log(account[0]);
       const marketplace = new web3.eth.Contract(MARKETPLACE_ABI, MARKETPLACE_ADDRESS);
+      try{
       const result = await marketplace.methods.purchaseProduct(_productId)
           .send({from: account[0], gas: 6721975});
         console.log(result);
+        alert("Transaction successful! :)")
+      } catch {
+        alert("The transaction failed. Possible reasons: \n 1. You do not have enough PMT to purchase this product \n 2. You are not allowed to purchase this product. \n")
+      }
     }
   }
 
-  async function InheritContract(){
-    if (typeof window.ethereum !== 'undefined') {
-      const account = await web3.eth.getAccounts(); 
-      console.log(account[0]);
-      const marketplace = new web3.eth.Contract(MARKETPLACE_ABI, MARKETPLACE_ADDRESS);
-      const result = await marketplace.methods.InheritContract('0xb4D6611b9C252009B4DACF2eBB9D1FA9Cb34adAE').send({from: account[0]});
-        console.log(result);
-   }
-  }
-
-  async function getAccountBalance(){
-    if (typeof window.ethereum !== 'undefined') {
-      const account = await web3.eth.getAccounts(); 
-      console.log(account[0]);
-      const marketplace = new web3.eth.Contract(MARKETPLACE_ABI, MARKETPLACE_ADDRESS);
-      const result = await marketplace.methods.getAccountBalance(67000000).call({from: account[0]});
-      console.log("balance of account", result);
-    }
-  }
+  // async function InheritContract(){
+  //   if (typeof window.ethereum !== 'undefined') {
+  //     const account = await web3.eth.getAccounts(); 
+  //     console.log(account[0]);
+  //     const marketplace = new web3.eth.Contract(MARKETPLACE_ABI, MARKETPLACE_ADDRESS);
+  //     const result = await marketplace.methods.InheritContract('0xCF2De6A10e6818b76A1e5bE6AF78Fc57b67af769').send({from: account[0]});
+  //       console.log(result);
+  //  }
+  // }
 
 
   return (
     <div className='marketplace'>
       <h1>Marketplace</h1><br/>
-      <button onClick={createProducts}>create products</button>
-      <button onClick={InheritContract}>Inherit Contract</button>
-      <button onClick={getAccountBalance}>get balance</button>
-      {/* <div className="product-grid">
-        <ul>
-          {getProducts.map(p => (
-            <li key={p.productId}> 
-              {p.name} - {p.price} PMT
-              <button className='button-buy' onClick={() => purchaseProduct(p.productId)}>Buy</button>
-            </li>
-          ))}
-        </ul>
-      </div> */}
+      {/* <button onClick={createProducts}>create products</button> */}
       <table>
         <thead>
           <tr>
             <th>Product Name</th>
             <th>Category</th>
             <th>Price</th>
-            <th>Owner</th>
+            {/* <th>Owner</th> */}
             <th></th>
           </tr>
         </thead>
@@ -117,7 +100,7 @@ function Marketplace() {
               <td>{p.name}</td>
               <td>{p.categoryId == 67000000 ? "Clothing" : p.categoryId == 50000000 ? "Food" : p.categoryId}</td>   
               <td>{p.price} PMT</td>
-              <td>{p.owner}</td>
+              {/* <td>{p.owner}</td> */}
               <td>
                 <button className='button-buy' onClick={() => purchaseProduct(p.productId)}>Buy</button>
               </td>

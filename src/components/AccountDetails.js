@@ -139,7 +139,7 @@ function AccountDetails() {
                     return <div key={allowedCategory.value}>
                         {/* get the quantity attribute from the array and display it next to the product's label
                          */}
-                        <p>{allowedCategory.label} - Quantity: {quantity.length > 0 ? quantity[0].quantity : '0'}</p>
+                        <p>{allowedCategory.label} - {quantity.length > 0 ? quantity[0].quantity : '0'} items purchased</p>
 
                     </div>
                 })}
