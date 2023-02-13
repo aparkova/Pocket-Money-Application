@@ -49,7 +49,7 @@ contract Marketplace {
     mapping(address => Purchase[]) public purchases;
 
     constructor() {
-        InheritContract(0xCF2De6A10e6818b76A1e5bE6AF78Fc57b67af769);
+        InheritContract(0xEdA8d6A8Da9D32cB22f4b5918b1A13E98916aF13);
     }
 
     function InheritContract(address _pmtoken) public {

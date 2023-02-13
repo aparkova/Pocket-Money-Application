@@ -1,4 +1,4 @@
-export const PM_TOKEN_ADDRESS = '0xCF2De6A10e6818b76A1e5bE6AF78Fc57b67af769'
+export const PM_TOKEN_ADDRESS = '0xEdA8d6A8Da9D32cB22f4b5918b1A13E98916aF13'
 export const PM_TOKEN_ABI = [
 	{
 		"inputs": [],
@@ -80,7 +80,7 @@ export const PM_TOKEN_ABI = [
 				"type": "uint256[]"
 			}
 		],
-		"name": "conditionalTransfer",
+		"name": "transferWithConditions",
 		"outputs": [],
 		"stateMutability": "payable",
 		"type": "function"
@@ -224,7 +224,7 @@ export const PM_TOKEN_ABI = [
 	}
 ]
 
-export const MARKETPLACE_ADDRESS = '0x6888F216Ddec1fD566199b0Ec179c0C870f93FbB'
+export const MARKETPLACE_ADDRESS = '0x9A8d4B62756B3e5A726C92B786Cb270a09D61fE2'
 export const MARKETPLACE_ABI = [
 	{
 		"inputs": [],

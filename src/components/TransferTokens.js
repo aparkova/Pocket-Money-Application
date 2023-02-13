@@ -10,8 +10,8 @@ const TransferTokens = (props) => {
 
     const web3 = new Web3(Web3.givenProvider || "http://localhost:8545"); 
 
-    // conditionalTransfer with parameter _allowedProducts as codes from ProductSelect
-    async function conditionalTransfer(_allowedProducts) {
+    // transferWithConditions with parameter _allowedProducts as codes from ProductSelect
+    async function transferWithConditions(_allowedProducts) {
       if (typeof window.ethereum !== 'undefined') {
         console.log('MetaMask is installed');
         const account = await window.ethereum.request({method: 'eth_requestAccounts'});
@@ -20,7 +20,7 @@ const TransferTokens = (props) => {
         //send tokens to another account
         //get the value of the input field
         try{
-        const tx = await pmToken.methods.conditionalTransfer(userAccount, props.selectedCategory, amount, _allowedProducts).send({from: account[0], gas: 2000000});
+        const tx = await pmToken.methods.transferWithConditions(userAccount, props.selectedCategory, amount, _allowedProducts).send({from: account[0], gas: 2000000});
         console.log(tx);
         alert("Transaction successful! :)")
         } catch {
@@ -53,7 +53,7 @@ const TransferTokens = (props) => {
       {/* <input disabled placeholder="ID" value={props.selectedCategory}/> */}
       <label className='label'>Enter the amount of Pocket Money to transfer:</label><br/>
       <input onChange={e => setAmount(e.target.value)} placeholder="Amount" /><br/>
-      <button type='button'className='button-transfer' onClick={() => conditionalTransfer(props.codes)}>Transfer with Conditions</button><br/>
+      <button type='button'className='button-transfer' onClick={() => transferWithConditions(props.codes)}>Transfer with Conditions</button><br/>
       
       <input onChange={e => setAmount(e.target.value)} placeholder="Amount"/><br/> 
       <input onChange={e => setUserAccount(e.target.value)} placeholder="Account ID"/><br/>

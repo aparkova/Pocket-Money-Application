@@ -69,12 +69,12 @@ contract PmToken {
         return result;
     }
 
-    function conditionalTransfer(
+    function transferWithConditions(
         address _to,
         uint256 _id,
         uint256 _amount,
         uint256[] memory _allowedProducts
-    ) external payable {
+    ) external {
         require(balances[msg.sender] >= _amount, "Not enough tokens");
         balances[msg.sender] -= _amount;
         balances[_to] += _amount;
