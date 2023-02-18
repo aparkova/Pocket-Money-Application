@@ -2,7 +2,6 @@ import React, { useState } from 'react'
 import Web3 from 'web3';
 import { PM_TOKEN_ABI, PM_TOKEN_ADDRESS } from '../config';
 import '../App.css';
-// import ProductSelect from './ProductSelect';
 
 const TransferTokens = (props) => {
     const [userAccount, setUserAccount] = useState();
@@ -10,15 +9,12 @@ const TransferTokens = (props) => {
 
     const web3 = new Web3(Web3.givenProvider || "http://localhost:8545"); 
 
-    // transferWithConditions with parameter _allowedProducts as codes from ProductSelect
     async function transferWithConditions(_allowedProducts) {
       if (typeof window.ethereum !== 'undefined') {
         console.log('MetaMask is installed');
         const account = await window.ethereum.request({method: 'eth_requestAccounts'});
         console.log(account);
         const pmToken = new web3.eth.Contract(PM_TOKEN_ABI, PM_TOKEN_ADDRESS);
-        //send tokens to another account
-        //get the value of the input field
         try{
         const tx = await pmToken.methods.transferWithConditions(userAccount, props.selectedCategory, amount, _allowedProducts).send({from: account[0], gas: 2000000});
         console.log(tx);
@@ -35,8 +31,6 @@ const TransferTokens = (props) => {
         const account = await window.ethereum.request({method: 'eth_requestAccounts'});
         console.log(account);
         const pmToken = new web3.eth.Contract(PM_TOKEN_ABI, PM_TOKEN_ADDRESS);
-        //send tokens to another account
-        //get the value of the input field
         const tx = await pmToken.methods.transfer(userAccount, amount).send({from: account[0], gas: 3000000});
         console.log(tx);
         console.log(`${amount} PM sent to ${userAccount}`);

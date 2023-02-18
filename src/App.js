@@ -16,7 +16,6 @@ function App () {
           <Route path="/" element={<Home/>}/>
           <Route path="/sendtokens" element={<SendTokens/>}/>
           <Route path="/marketplace" element={<Marketplace/>}/>
-          {/* <Route path="/about" element={<About/>}/> */}
        </Routes>
       </Sidebar>
       </BrowserRouter>

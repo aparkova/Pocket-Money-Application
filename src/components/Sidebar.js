@@ -24,12 +24,6 @@ const Sidebar = ({children}) => {
             name:"Marketplace",
             icon:<FaIcons.FaShoppingCart/>
         }
-        // ,
-        // {
-        //     path:"/about",
-        //     name:"About",
-        //     icon:<IoIcons.IoMdHelpCircle/>
-        // }
     ]
     return (
         <div className="container">
