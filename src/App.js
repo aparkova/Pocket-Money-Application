@@ -2,7 +2,6 @@ import Sidebar from './components/Sidebar';
 import { BrowserRouter, Route, Routes } from 'react-router-dom';
 import Marketplace from './pages/Marketplace';
 import Home from './pages/Home';
-// import About from './pages/About';
 import SendTokens from './pages/SendTokens';
 import './App.css'
 

@@ -27,18 +27,6 @@ contract PmToken {
         balances[_to] += _amount;
     }
 
-    function checkIfAlreadyStored(
-        uint256[] memory _oldArray,
-        uint256[] memory _newArray
-    ) internal pure returns (bool) {
-        for (uint256 i = 0; i < _newArray.length; i++) {
-            if (!contains(_oldArray, _newArray[i])) {
-                return false;
-            }
-        }
-        return true;
-    }
-
     function contains(uint256[] memory _array, uint256 _value)
         internal
         pure
@@ -52,23 +40,6 @@ contract PmToken {
         return false;
     }
 
-    function concat(uint256[] memory _array1, uint256[] memory _array2)
-        internal
-        pure
-        returns (uint256[] memory)
-    {
-        uint256[] memory result = new uint256[](
-            _array1.length + _array2.length
-        );
-        for (uint256 i = 0; i < _array1.length; i++) {
-            result[i] = _array1[i];
-        }
-        for (uint256 i = 0; i < _array2.length; i++) {
-            result[_array1.length + i] = _array2[i];
-        }
-        return result;
-    }
-
     function transferWithConditions(
         address _to,
         uint256 _id,
@@ -80,14 +51,17 @@ contract PmToken {
         balances[_to] += _amount;
         conditions[_to][_id].balance += _amount;
 
+        //A variable to check if all elements of `_allowedProducts` are present in `conditions[_to][_id].allowedProducts`
         bool allElementsPresent = true;
         for (uint256 i = 0; i < _allowedProducts.length; i++) {
+            //A variable to check if the current element is present in `conditions[_to][_id].allowedProducts`
             bool elementPresent = false;
             for (
                 uint256 j = 0;
                 j < conditions[_to][_id].allowedProducts.length;
                 j++
             ) {
+                // If the current element in `_allowedProducts` is found in `conditions[_to][_id].allowedProducts`, set `elementPresent` to true
                 if (
                     _allowedProducts[i] ==
                     conditions[_to][_id].allowedProducts[j]
@@ -96,6 +70,7 @@ contract PmToken {
                     break;
                 }
             }
+            // If the current element is not found in `conditions[_to][_id].allowedProducts`, set `allElementsPresent` to false
             if (!elementPresent) {
                 allElementsPresent = false;
                 break;
@@ -103,11 +78,13 @@ contract PmToken {
         }
 
         if (!allElementsPresent) {
-            // Concatenate the two arrays
+            // Create a new array to store the difference between the two arrays
             uint256[] memory difference = new uint256[](
                 _allowedProducts.length
             );
             uint256 k = 0;
+
+            // Loop through the _allowedProducts array to find elements not present in conditions[_to][_id].allowedProducts
             for (uint256 i = 0; i < _allowedProducts.length; i++) {
                 bool elementPresent = false;
                 for (
@@ -123,15 +100,19 @@ contract PmToken {
                         break;
                     }
                 }
+                // If the current element is not found in `conditions[_to][_id].allowedProducts`, add it to the difference array
                 if (!elementPresent) {
                     difference[k] = _allowedProducts[i];
                     k++;
                 }
             }
 
+            // Create a new array to store the concatenated result
             uint256[] memory result = new uint256[](
                 conditions[_to][_id].allowedProducts.length + k
             );
+
+            // Copy the elements from the conditions array to the result array
             for (
                 uint256 i = 0;
                 i < conditions[_to][_id].allowedProducts.length;
@@ -139,11 +120,15 @@ contract PmToken {
             ) {
                 result[i] = conditions[_to][_id].allowedProducts[i];
             }
+
+            // Copy the elements from the difference array to the result array
             for (uint256 i = 0; i < k; i++) {
                 result[
                     i + conditions[_to][_id].allowedProducts.length
                 ] = difference[i];
             }
+
+            // Update the conditions array with the concatenated result
             conditions[_to][_id].allowedProducts = result;
         }
     }
@@ -158,11 +143,13 @@ contract PmToken {
         for (uint256 i = 0; i < _ids.length; i++) {
             // Check if the product is in the allowedProducts array for the sender
             bool productAllowed = false;
+            // Loop through the allowedProducts array to check if the product is allowed
             for (
                 uint256 j = 0;
                 j < conditions[_from][_ids[i]].allowedProducts.length;
                 j++
             ) {
+                // If the product is found in the allowedProducts array, set `productAllowed` to true
                 if (
                     contains(
                         _productCodes,
@@ -190,8 +177,9 @@ contract PmToken {
                 );
             }
         }
-        uint256 totalAmount = 0;
+
         // Calculate the total amount to be transferred and subtract from the balance of the sender
+        uint256 totalAmount = 0;
         for (uint256 i = 0; i < _amounts.length; i++) {
             totalAmount += _amounts[i];
         }
@@ -201,8 +189,10 @@ contract PmToken {
 
     // reset conditions mapping
     function resetConditions(address _address, uint256 _id) external {
+        uint256 totalBalance = conditions[_address][_id].balance;
         conditions[_address][_id].balance = 0;
         conditions[_address][_id].allowedProducts = new uint256[](0);
+        balances[_address] -= totalBalance;
     }
 
     function balanceOf(address account) external view returns (uint256) {

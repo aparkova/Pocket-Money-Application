@@ -49,7 +49,7 @@ contract Marketplace {
     mapping(address => Purchase[]) public purchases;
 
     constructor() {
-        InheritContract(0xEdA8d6A8Da9D32cB22f4b5918b1A13E98916aF13);
+        InheritContract(0x5AfBf2A17b9313f33a8B48609c8FF24e37eEED20);
     }
 
     function InheritContract(address _pmtoken) public {
@@ -92,14 +92,6 @@ contract Marketplace {
         returns (PmToken.Balance memory)
     {
         return token.getBalance(_account, _id);
-    }
-
-    function GetBalanceOfCurrAddress(uint256 _id)
-        public
-        view
-        returns (PmToken.Balance memory)
-    {
-        return getBalance(msg.sender, _id);
     }
 
     //create product
@@ -170,7 +162,6 @@ contract Marketplace {
         require(_seller != msg.sender);
         //update the product
         products[_productId] = _product;
-        //pay the seller by buying the product
         uint256[] memory _ids = new uint256[](1);
         _ids[0] = _product.id;
         uint256[] memory _amounts = new uint256[](1);
