@@ -49,9 +49,9 @@ const TransferTokens = (props) => {
       <input onChange={e => setAmount(e.target.value)} placeholder="Amount" /><br/>
       <button type='button'className='button-transfer' onClick={() => transferWithConditions(props.codes)}>Transfer with Conditions</button><br/>
       
-      <input onChange={e => setAmount(e.target.value)} placeholder="Amount"/><br/> 
-      <input onChange={e => setUserAccount(e.target.value)} placeholder="Account ID"/><br/>
-      <button type='button' className='button-transfer' onClick={() => transfer()}>Transfer</button>
+      {/* <input onChange={e => setAmount(e.target.value)} placeholder="Amount"/><br/>  */}
+      {/* <input onChange={e => setUserAccount(e.target.value)} placeholder="Account ID"/><br/> */}
+      {/* <button type='button' className='button-transfer' onClick={() => transfer()}>Transfer</button> */}
     </form>
     </div>
   )
