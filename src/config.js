@@ -1,4 +1,4 @@
-export const PM_TOKEN_ADDRESS = '0x5AfBf2A17b9313f33a8B48609c8FF24e37eEED20'
+export const PM_TOKEN_ADDRESS = '0xFdEc338ab0a8875Fa6e4315F62f57BCAB54677EA'
 export const PM_TOKEN_ABI = [
 	{
 		"inputs": [],
@@ -224,7 +224,7 @@ export const PM_TOKEN_ABI = [
 	}
 ]
 
-export const MARKETPLACE_ADDRESS = '0xcA12ae1fEF444023E17aDF6ca65c6BeFe9549334'
+export const MARKETPLACE_ADDRESS = '0x4894317fb170a4990124e9485d4295A040Cc2e9f'
 export const MARKETPLACE_ABI = [
 	{
 		"inputs": [],

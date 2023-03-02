@@ -12,7 +12,7 @@ export default function ProductSelect() {
     const [selectedCategory, setSelectedCategory] = useState('');
     
     console.log(value, "value")
-    console.log(codes, "tuk1")
+    console.log(selectedCategory, "category")
 
     let options = [
         Group("---CLOTHING---", clothing, setValue),
